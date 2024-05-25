@@ -1,7 +1,5 @@
 package com.InventoryManagement.inventory;
 
-import com.mongodb.MongoClient;
-import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.BasicDBObject;
@@ -10,17 +8,13 @@ import java.util.ArrayList;
 import org.bson.types.ObjectId;
 
 public class Customer {
-		@SuppressWarnings({ "unused"})
 		private String id;
 		private String name;
 		private String address;
 		private String contact;
 		private String details;
-		private final static MongoClient client= MongodbConnection.getClient();
-		@SuppressWarnings("deprecation")
-		private final static DB db= client.getDB("inventory-management");
-		private final static DBCollection collection= db.getCollection("customers");
-		
+		final static DBCollection collection= App.db.getCollection("customers");
+		 
 		
 	public Customer(String id,String name, String address, String contact, String details) {
 		this.id=id;

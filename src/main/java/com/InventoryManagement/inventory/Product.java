@@ -2,12 +2,11 @@ package com.InventoryManagement.inventory;
 import java.lang.reflect.Field;
 import com.mongodb.DBCursor;
 import java.util.ArrayList;
-import com.mongodb.MongoClient;
-import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import org.bson.types.ObjectId;
+
 public class Product {
 		private String id;
 		private String name;
@@ -15,11 +14,7 @@ public class Product {
 		private double pricePerUnit;
 		private double quantity;
 		private double reorderLevel;
-		private final static MongoClient client= MongodbConnection.getClient();
-		@SuppressWarnings("deprecation")
-		private final static DB db= client.getDB("inventory-management");
-		private final static DBCollection collection= db.getCollection("products");
-		
+		final static DBCollection collection= App.db.getCollection("products");
 //		regular constructor
 	public Product(String id,String name,String description, double pricePerUnit, double quantity, double reorderLevel) {
 		this.id= id;
@@ -35,10 +30,10 @@ public class Product {
 		Field[] fields=this.getClass().getDeclaredFields();
 		short count=0;
 		 for(Field field : fields) {
-//			 check if object elements haven't exhausted if true break loop
+//			 check if object elements haven't exhausted. if true break loop
 			 if(count > objects.length-1) break;
 			 
-//			 check if loop react on double values and convert them
+//			 check if loop reach on double values and convert them
 			 if(count >=3) {
 				 field.set(this, Double.parseDouble((String)objects[count]));
 			 }else{
@@ -108,6 +103,10 @@ public class Product {
 		DBObject product= collection.findOne(_id);
 		if (product ==null) return false;
 		return (double)product.get("quantity")>=qty?true:false;
+	}
+	public  boolean available(double qty) {
+		 
+		return this.quantity>=qty?true:false;
 	}
 	
 	public static void reduceStock(String id, double qty) {
@@ -199,7 +198,7 @@ public class Product {
 	
 	@Override
 	public String toString() {
-		return this.name;
+		return this.name + "\t" +this.description.substring(0, Math.round(this.description.length()/2))+"\t"+this.quantity + "\t" + this.pricePerUnit;
 	}
 	
 	public String[] toList() {

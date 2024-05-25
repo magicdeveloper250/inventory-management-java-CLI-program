@@ -44,6 +44,26 @@ public class Main {
 //		Order.deleteOrder("664f3cc69922f86f39bb73d6");
 //		Order.updateStatus("664f3c6452bc751cb5ed9af8", OrderStatus.delivered);
 //		System.out.println(Order.getOrders());
+//		
+//		INVENTORY TEST
+//		InventoryManagement inventory= new InventoryManagement();
+//		inventory.addProduct();
+//		inventory.showProducts(null);
+//		inventory.addCustomer();
+//		inventory.showCustomers();
+//		inventory.addOrder();
+		
+//		PRODUCT SCREEN TEST
+//		ProductScreen productScreen= new ProductScreen();
+//		productScreen.start();
+		
+//		CUSTOMER SCREEN TEST
+//		CustomerScreen customerScreen= new CustomerScreen();
+//		customerScreen.start();
+		
+//		ORDER SCREEN TEST
+		OrderScreen orderScreen= new OrderScreen();
+		orderScreen.start();
 		 
 		 
 

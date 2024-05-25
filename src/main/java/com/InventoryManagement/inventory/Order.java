@@ -2,8 +2,6 @@ package com.InventoryManagement.inventory;
 
 import java.util.ArrayList;
 import java.util.Date;
-import com.mongodb.MongoClient;
-import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
@@ -16,10 +14,7 @@ public class Order {
 		private Cart cart;
 		private Date  date;
 		private OrderStatus status;
-		private final static MongoClient client= MongodbConnection.getClient();
-		@SuppressWarnings("deprecation")
-		private final static DB db= client.getDB("inventory-management");
-		private final static DBCollection collection= db.getCollection("orders");
+		final static DBCollection collection= App.db.getCollection("orders");
 		
 //	Basic constructor	
 	public Order(String id, String customerId, Cart cart) {
@@ -50,18 +45,23 @@ public class Order {
 	public  String getId() {
 		return this.id;
 	}
+	public Cart getCart() {
+		return this.cart;
+	}
 	public void setCustomerId( String customerId) {
 		this.customerId= customerId;
 	}
 	public Customer getCustomer() {
 		return Customer.getCustomer(customerId);
 	}
-	@SuppressWarnings("static-access")
 	public  ArrayList<String[]> getProducts() {
 		return this.cart.toList();
 	}
 	public OrderStatus getStatus() {
 		return this.status;
+	}
+	public void setStatus(OrderStatus newStatus) {
+		this.status = newStatus;
 	}
 	
 	
@@ -75,6 +75,10 @@ public class Order {
 		orderDoc.append("status", this.getStatus().toString());
 		orderDoc.append("value", this.cart.totalAmount());
 		collection.insert(orderDoc);
+		for (Product product : this.cart.getProducts()) {
+			Product.reduceStock(product.getId(), product.getQuantity());
+		}
+		
 	}
 	
 	public static Order getOrder(String orderId) {
