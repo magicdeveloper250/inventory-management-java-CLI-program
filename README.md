@@ -9,7 +9,7 @@ This Inventory Management System (MIS) command line program was created with the
 
 ## 2. KNOWN ISSUES
 
-This program doesn't catch all exception that may arise. If you like you will add your exception handlers.
+This program doesn't catch all exception that may arise. If you like you will add your own exception handlers.
 
 ##### Author: [IMPANO Manzi Enock](https://github.com/magicdeveloper250) 
 
