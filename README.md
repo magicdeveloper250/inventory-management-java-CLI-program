@@ -11,6 +11,6 @@ This Inventory Management System (MIS) command line program was created with the
 
 This program doesn't catch all exception that may arise. If you like you will add your exception handlers.
 
-##### Author: (https://github.com/magicdeveloper250)[IMPANO Manzi Enock]
+##### Author: (https://github.com/magicdeveloper250) [IMPANO Manzi Enock]
 
    
